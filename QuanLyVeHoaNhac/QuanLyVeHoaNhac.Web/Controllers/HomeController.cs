@@ -97,7 +97,44 @@ namespace QuanLyVeHoaNhac.Controllers
                 return View();
             }
         }
+        public IActionResult ChonGhe(int id, int loaiVeId)
+        {
+            // ĐIỀU KIỆN QUAN TRỌNG: Nếu là vé thường (ID 3) thì không cho chọn ghế, đẩy về trang kết quả
+            if (loaiVeId == 3)
+            {
+                return RedirectToAction("VeCuaToi");
+            }
 
+            // Lấy thông tin show để hiện ở cột phải
+            var suKien = new HoaNhacViewModel
+            {
+                MaHoaNhac = id,
+                TenHoaNhac = "NEON PULSE 2024",
+                DiaDiem = "SÂN VẬN ĐỘNG QUỐC GIA",
+                GiaVeTu = 2250000,
+                HinhAnh = "/images/event1.jpg"
+            };
+            ViewBag.SuKien = suKien;
+
+            // Tạo ma trận 14 cột ghế mẫu
+            var danhSachGhe = new List<GheViewModel>();
+            string[] hang = { "A", "B", "C" };
+            for (int h = 0; h < hang.Length; h++)
+            {
+                for (int i = 1; i <= 14; i++)
+                {
+                    danhSachGhe.Add(new GheViewModel
+                    {
+                        MaGhe = hang[h] + i.ToString("D2"),
+                        HangGhe = hang[h],
+                        SoGhe = i.ToString("D2"),
+                        TrangThai = (i == 3 || i == 4) ? 1 : 0, // Giả định ghế 03, 04 đã có người đặt
+                        GiaVe = 2250000
+                    });
+                }
+            }
+            return View(danhSachGhe);
+        }
         public IActionResult Privacy()
         {
             return View();

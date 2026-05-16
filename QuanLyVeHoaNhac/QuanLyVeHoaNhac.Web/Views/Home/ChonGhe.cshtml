@@ -1,0 +1,539 @@
+﻿@model IEnumerable<QuanLyVeHoaNhac.Models.GheViewModel>
+@{
+    var suKien = ViewBag.SuKien as QuanLyVeHoaNhac.Models.HoaNhacViewModel;
+    ViewData["Title"] = "Chọn Chỗ Ngồi VIP - BACKSTAGE";
+}
+
+<style>
+    /* BỐ CỤC CHUNG & MÀU SẮC */
+    body {
+        background-color: #0b0d0b !important;
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .text-neon {
+        color: #39ff14 !important;
+    }
+
+    .bg-neon {
+        background-color: #39ff14 !important;
+        color: #000 !important;
+    }
+
+    /* CỘT TRÁI: KHU VỰC CHỌN GHẾ */
+    .page-main-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        margin-bottom: 2px;
+    }
+
+    .page-sub-title {
+        font-size: 0.75rem;
+        color: #888;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    /* Thanh Sân Khấu Chính */
+    .stage-indicator {
+        border: 1px solid #1f3a1f;
+        color: #39ff14;
+        text-align: center;
+        padding: 6px;
+        font-weight: 800;
+        font-size: 0.7rem;
+        border-radius: 4px;
+        letter-spacing: 1px;
+        width: 70%;
+        margin: 30px auto;
+        background-color: #0f140f;
+    }
+
+    /* Chú thích trạng thái (Legend) */
+    .seat-legend {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 35px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #aaa;
+        text-transform: uppercase;
+    }
+
+    .legend-box {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+    }
+
+        .legend-box.booked {
+            background-color: #222;
+            border: 1px solid #333;
+        }
+
+        .legend-box.available {
+            background-color: transparent;
+            border: 1px solid #39ff14;
+        }
+
+        .legend-box.selected {
+            background-color: #39ff14;
+        }
+
+    /* Ma trận ghế ngồi 14 cột */
+    .seat-matrix {
+        display: grid;
+        grid-template-columns: 20px repeat(14, 1fr) 20px; /* 14 cột ghế + 2 cột chữ cái 2 bên */
+        gap: 6px;
+        align-items: center;
+        margin-bottom: 30px;
+        justify-items: center;
+    }
+
+    .row-letter {
+        font-weight: 800;
+        color: #aaa;
+        font-size: 0.95rem;
+    }
+
+    /* Từng nút ghế */
+    .seat-item {
+        width: 100%;
+        aspect-ratio: 1/1;
+        max-width: 35px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .seat-item.s-available {
+            background-color: transparent;
+            border: 1px solid #1f3a1f;
+            color: #39ff14;
+        }
+
+            .seat-item.s-available:hover {
+                border-color: #39ff14;
+                background-color: #121c12;
+            }
+
+        .seat-item.s-booked {
+            background-color: #222;
+            border: 1px solid #2a2a2a;
+            color: #555;
+            cursor: not-allowed;
+        }
+
+        .seat-item.s-selected {
+            background-color: #39ff14;
+            color: #000;
+            font-weight: 900;
+            border: 1px solid #39ff14;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+    /* Khối Pill VIP & Cảnh báo */
+    .vip-zone-indicator {
+        border: 1px solid #39ff14;
+        color: #39ff14;
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 5px 25px;
+        border-radius: 20px;
+        display: inline-block;
+        letter-spacing: 1px;
+    }
+
+    .info-note-box {
+        background-color: transparent;
+        border: 1px solid #1a221a;
+        border-radius: 6px;
+        padding: 15px 20px;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        margin-top: 50px;
+    }
+
+        .info-note-box i {
+            color: #39ff14;
+            font-size: 1.1rem;
+        }
+
+        .info-note-box p {
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 500;
+        }
+
+    /* CỘT PHẢI: HOÁ ĐƠN THANH TOÁN */
+    .sidebar-checkout {
+        background-color: #111;
+        border: 1px solid #1c201c;
+        border-radius: 10px;
+        padding: 25px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .event-thumb-header {
+        width: 100%;
+        height: 120px;
+        border-radius: 6px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        margin-bottom: 25px;
+        background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.1)), url('/images/event1.jpg') center/cover;
+    }
+
+    .badge-vip-pass {
+        background-color: transparent;
+        border: 1px solid #39ff14;
+        color: #39ff14;
+        font-size: 0.5rem;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 2px;
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        letter-spacing: 0.5px;
+    }
+
+    .thumb-title {
+        font-size: 1.3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    /* Các dòng chi tiết hoá đơn */
+    .bill-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .bill-label {
+        color: #777;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        line-height: 1.4;
+    }
+
+    .bill-value {
+        color: #ddd;
+        text-align: right;
+    }
+
+    .val-neon {
+        color: #39ff14 !important;
+    }
+
+    /* Khối tổng tiền */
+    .total-separator {
+        border-color: #222;
+        margin: 20px 0;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .total-label {
+        color: #777;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .total-amount {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: #39ff14;
+        line-height: 1;
+    }
+
+    /* Danh sách Phương thức thanh toán */
+    .payment-section-title {
+        font-size: 0.65rem;
+        color: #777;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .pay-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .pay-card {
+        background-color: transparent;
+        border: 1px solid #222;
+        border-radius: 6px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .pay-card:hover {
+            border-color: #444;
+            background-color: #141414;
+        }
+
+        .pay-card.active {
+            border-color: #39ff14;
+            background-color: #121c12;
+        }
+
+    /* Chấm Radio bên trái */
+    .radio-circle {
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid #555;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .pay-card.active .radio-circle {
+        border-color: #39ff14;
+    }
+
+        .pay-card.active .radio-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #39ff14;
+            border-radius: 50%;
+        }
+
+    .pay-texts h4 {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #ddd;
+        margin: 0 0 2px 0;
+        text-transform: uppercase;
+    }
+
+    .pay-texts p {
+        font-size: 0.65rem;
+        color: #666;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .pay-card.active .pay-texts h4 {
+        color: #fff;
+    }
+
+    /* Nút bấm & Footer */
+    .btn-checkout {
+        background-color: #39ff14;
+        color: #000;
+        font-weight: 900;
+        font-size: 0.9rem;
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 25px;
+        transition: 0.2s;
+    }
+
+        .btn-checkout:hover {
+            background-color: #2ed110;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+    .legal-text {
+        font-size: 0.55rem;
+        color: #555;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 0.5px;
+        margin-top: 15px;
+        line-height: 1.5;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="container-fluid px-5 mt-4">
+    <div class="row">
+        <div class="col-lg-8 pe-lg-5 mb-5">
+            <h1 class="page-main-title text-white">CHỌN CHỖ NGỒI VIP</h1>
+            <p class="page-sub-title">ĐẠI NHẠC HỘI: @suKien.TenHoaNhac &bull; @suKien.DiaDiem</p>
+
+            <div class="stage-indicator">SÂN KHẤU CHÍNH / MAIN STAGE</div>
+
+            <div class="seat-legend">
+                <div class="legend-item"><div class="legend-box booked"></div> Đã đặt</div>
+                <div class="legend-item"><div class="legend-box available"></div> Còn trống</div>
+                <div class="legend-item"><div class="legend-box selected"></div> Đang chọn</div>
+            </div>
+
+            <div class="seat-matrix">
+                @foreach (var hangGhe in Model.GroupBy(g => g.HangGhe))
+                {
+                    <div class="row-letter">@hangGhe.Key</div>
+                    @foreach (var ghe in hangGhe)
+                    {
+                        string seatClass = "s-available";
+                        if (ghe.TrangThai == 1) { seatClass = "s-booked"; }
+                        else if (ghe.MaGhe == "A12") { seatClass = "s-selected"; } // Setup sẵn ghế A12 giống ảnh demo
+
+                        <div class="seat-item @seatClass" onclick="selectSeatUI(this, '@ghe.MaGhe')">
+                            @ghe.SoGhe
+                        </div>
+                    }
+                    <div class="row-letter">@hangGhe.Key</div>
+                }
+            </div>
+
+            <div class="text-center">
+                <div class="vip-zone-indicator">KHU VỰC VIP / VIP SECTION</div>
+            </div>
+
+            <div class="info-note-box">
+                <i class="bi bi-info-circle"></i>
+                <p>Chỗ ngồi VIP bao gồm đặc quyền lối đi riêng, quà tặng lưu niệm giới hạn và cơ hội tham gia buổi soundcheck cùng nghệ sĩ.<br>Vui lòng kiểm tra kỹ số ghế trước khi thanh toán.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-5">
+            <div class="sidebar-checkout shadow-lg">
+                <div class="event-thumb-header">
+                    <span class="badge-vip-pass">VIP PASS</span>
+                    <h3 class="text-white thumb-title">@suKien.TenHoaNhac</h3>
+                </div>
+
+                <div class="bill-row">
+                    <span class="bill-label">HẠNG VÉ</span>
+                    <span class="bill-value val-neon">VIP PLATINUM</span>
+                </div>
+                <div class="bill-row">
+                    <span class="bill-label">VỊ TRÍ GHẾ</span>
+                    <span class="bill-value seat-display">Hàng A, Ghế 12</span>
+                </div>
+                <div class="bill-row">
+                    <span class="bill-label">SỐ LƯỢNG</span>
+                    <span class="bill-value">01 Vé</span>
+                </div>
+                <div class="bill-row">
+                    <span class="bill-label">GIẢM GIÁ<br><span class="val-neon" style="font-size:0.65rem;">MÀ: NEON10</span></span>
+                    <span class="bill-value">-250.000đ</span>
+                </div>
+
+                <hr class="total-separator" />
+
+                <div class="total-row">
+                    <span class="total-label">TỔNG CỘNG</span>
+                    <span class="total-amount">2.250.000đ</span>
+                </div>
+
+                <span class="payment-section-title">PHƯƠNG THỨC THANH TOÁN</span>
+                <div class="pay-methods">
+                    <div class="pay-card active" onclick="switchPayment(this)">
+                        <div class="radio-circle"></div>
+                        <div class="pay-texts">
+                            <h4>THẺ TÍN DỤNG / GHI NỢ</h4>
+                            <p>Visa, Mastercard, JCB</p>
+                        </div>
+                    </div>
+
+                    <div class="pay-card" onclick="switchPayment(this)">
+                        <div class="radio-circle"></div>
+                        <div class="pay-texts">
+                            <h4>VÍ ĐIỆN TỬ</h4>
+                            <p>MoMo, ZaloPay, ShopeePay</p>
+                        </div>
+                    </div>
+
+                    <div class="pay-card" onclick="switchPayment(this)">
+                        <div class="radio-circle"></div>
+                        <div class="pay-texts">
+                            <h4>CHUYỂN KHOẢN</h4>
+                            <p>Vietcombank, Techcombank...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a asp-controller="Home" asp-action="VeCuaToi" class="btn-checkout">Xác Nhận Thanh Toán</a>
+
+                <div class="legal-text">
+                    BẰNG VIỆC NHẤN XÁC NHẬN, BẠN ĐỒNG Ý VỚI ĐIỀU KHOẢN DỊCH VỤ
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Javascript xử lý tương tác ghế và thanh toán
+    function selectSeatUI(element, maGhe) {
+        if (element.classList.contains('s-booked')) return;
+
+        // Bỏ chọn ghế hiện tại
+        document.querySelectorAll('.seat-item.s-selected').forEach(s => {
+            s.classList.remove('s-selected');
+            s.classList.add('s-available');
+        });
+
+        // Chọn ghế mới
+        element.classList.remove('s-available');
+        element.classList.add('s-selected');
+
+        // Cập nhật text bên cột hoá đơn
+        let hang = maGhe.substring(0, 1);
+        let so = maGhe.substring(1);
+        document.querySelector('.seat-display').innerText = "Hàng " + hang + ", Ghế " + so;
+    }
+
+    function switchPayment(element) {
+        document.querySelectorAll('.pay-card').forEach(card => card.classList.remove('active'));
+        element.classList.add('active');
+    }
+</script>

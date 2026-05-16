@@ -269,7 +269,7 @@
             <div id="ticket-list-wrapper">
                 @foreach (var ticket in Model)
                 {
-                    <div class="ticket-select-card" data-price="@((long)ticket.GiaVe)" data-name="@ticket.TenLoaiVe">
+                    <div class="ticket-select-card" data-id="@ticket.MaLoaiVe" data-price="@((long)ticket.GiaVe)" data-name="@ticket.TenLoaiVe">
                         <div>
                             <div class="t-name-tag text-white">
                                 @ticket.TenLoaiVe
@@ -322,7 +322,7 @@
                     <h2 class="text-neon grand-total-price" id="grand-total-display">0 VNĐ</h2>
                 </div>
 
-                <a asp-controller="Home" asp-action="ChonGhe" class="btn-confirm-checkout">
+                <a href="#" id="btn-submit-booking" class="btn-confirm-checkout">
                     Xác Nhận Đặt Vé
                 </a>
 
@@ -338,17 +338,23 @@
 <script>
     let isPromoApplied = false;
 
+    // Lấy ID show nhạc từ Razor ném vào biến JS cho an toàn
+    const hoaNhacId = @(suKien?.MaHoaNhac ?? 1);
+
+    // 1. HÀM TĂNG GIẢM SỐ LƯỢNG VÉ
     function updateQty(button, change) {
         const qtySpan = button.parentElement.querySelector('.qty-display-num');
         let currentQty = parseInt(qtySpan.innerText);
         currentQty += change;
 
-        if (currentQty >= 0 && currentQty <= 4) { // Giới hạn tối đa 4 vé
+        // Giới hạn chỉ cho mua từ 0 đến tối đa 4 vé
+        if (currentQty >= 0 && currentQty <= 4) {
             qtySpan.innerText = currentQty;
-            calculateTotal();
+            calculateTotal(); // Cập nhật lại hoá đơn
         }
     }
 
+    // 2. HÀM NHẬP MÃ GIẢM GIÁ
     function applyPromo() {
         const code = document.getElementById('promo-code-input').value.trim();
         if (code === "XSNO23NC") {
@@ -357,14 +363,20 @@
         }
     }
 
+    // 3. HÀM TÍNH TỔNG TIỀN VÀ TRUYỀN ID SANG TRANG TIẾP THEO
     function calculateTotal() {
         let subtotal = 0;
         let htmlItems = '';
         const cards = document.querySelectorAll('.ticket-select-card');
 
+        let selectedLoaiVeId = 1; // Mặc định mã vé
+
         cards.forEach(card => {
             const qty = parseInt(card.querySelector('.qty-display-num').innerText);
             if (qty > 0) {
+                // Lấy data-id mã vé
+                selectedLoaiVeId = card.getAttribute('data-id') || 1;
+
                 const name = card.getAttribute('data-name');
                 const price = parseInt(card.getAttribute('data-price'));
                 const itemTotal = qty * price;
@@ -382,19 +394,23 @@
         const discountRow = document.getElementById('discount-row');
         const discountVal = document.getElementById('discount-val');
         const grandTotalDisplay = document.getElementById('grand-total-display');
+        const btnSubmit = document.getElementById('btn-submit-booking');
 
+        // Nếu chưa chọn vé nào
         if (subtotal === 0) {
             receiptList.innerHTML = '<p class="text-muted small fw-bold py-2 mb-0">Chưa có vé nào được chọn</p>';
             discountRow.style.display = 'none';
             grandTotalDisplay.innerText = '0 VNĐ';
+            btnSubmit.href = "#"; // Khóa nút bấm
             return;
         }
 
         receiptList.innerHTML = htmlItems;
 
+        // Tính giảm giá
         let discount = 0;
         if (isPromoApplied) {
-            discount = subtotal * 0.1; // Giảm giá 10% đúng thiết kế
+            discount = subtotal * 0.1;
             discountRow.style.display = 'flex';
             discountVal.innerText = `-${discount.toLocaleString('vi-VN')} VNĐ`;
         } else {
@@ -403,5 +419,8 @@
 
         const grandTotal = subtotal - discount;
         grandTotalDisplay.innerText = grandTotal.toLocaleString('vi-VN') + " VNĐ";
+
+        // Gắn linh động id show và id loại vé vào đường dẫn
+        btnSubmit.href = `/Home/ChonGhe?id=${hoaNhacId}&loaiVeId=${selectedLoaiVeId}`;
     }
 </script>
