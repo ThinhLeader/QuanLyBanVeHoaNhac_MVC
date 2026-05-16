@@ -1,0 +1,336 @@
+﻿@{
+    var suKien = ViewBag.SuKien as QuanLyVeHoaNhac.Models.HoaNhacViewModel;
+    ViewData["Title"] = "Thanh Toán Đơn Hàng - BACKSTAGE";
+}
+
+<style>
+    body {
+        background-color: #0b0d0b !important;
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .text-neon {
+        color: #39ff14 !important;
+    }
+
+    .bg-neon {
+        background-color: #39ff14 !important;
+        color: #000 !important;
+    }
+
+    .page-main-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        margin-bottom: 2px;
+    }
+
+    /* Khối thông tin bên trái */
+    .order-info-card {
+        background: #111;
+        border: 1px solid #1c201c;
+        border-radius: 10px;
+        padding: 30px;
+        margin-top: 20px;
+    }
+
+        .order-info-card h4 {
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-left: 3px solid #39ff14;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+    .standard-ticket-banner {
+        background: #162416;
+        border: 1px dashed #39ff14;
+        color: #39ff14;
+        padding: 15px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    .policy-list {
+        list-style: none;
+        padding: 0;
+        color: #aaa;
+        font-size: 0.85rem;
+        line-height: 1.8;
+        font-weight: 600;
+    }
+
+        .policy-list li {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .policy-list i {
+            color: #39ff14;
+            font-size: 1.1rem;
+        }
+
+    /* Cột phải hoá đơn (Copy nguyên xi style của trang Chọn Ghế) */
+    .sidebar-checkout {
+        background-color: #111;
+        border: 1px solid #1c201c;
+        border-radius: 10px;
+        padding: 25px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .event-thumb-header {
+        width: 100%;
+        height: 120px;
+        border-radius: 6px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        margin-bottom: 25px;
+        background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.1)), url('/images/event1.jpg') center/cover;
+    }
+
+    .thumb-title {
+        font-size: 1.3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .bill-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .bill-label {
+        color: #777;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .bill-value {
+        color: #ddd;
+        text-align: right;
+    }
+
+    .total-separator {
+        border-color: #222;
+        margin: 20px 0;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .total-label {
+        color: #777;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .total-amount {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: #39ff14;
+        line-height: 1;
+    }
+
+    .payment-section-title {
+        font-size: 0.65rem;
+        color: #777;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .pay-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .pay-card {
+        background-color: transparent;
+        border: 1px solid #222;
+        border-radius: 6px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .pay-card:hover {
+            border-color: #444;
+            background-color: #141414;
+        }
+
+        .pay-card.active {
+            border-color: #39ff14;
+            background-color: #121c12;
+        }
+
+    .radio-circle {
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid #555;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .pay-card.active .radio-circle {
+        border-color: #39ff14;
+    }
+
+        .pay-card.active .radio-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #39ff14;
+            border-radius: 50%;
+        }
+
+    .pay-texts h4 {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #ddd;
+        margin: 0 0 2px 0;
+        text-transform: uppercase;
+    }
+
+    .pay-texts p {
+        font-size: 0.65rem;
+        color: #666;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .pay-card.active .pay-texts h4 {
+        color: #fff;
+    }
+
+    .btn-checkout {
+        background-color: #39ff14;
+        color: #000;
+        font-weight: 900;
+        font-size: 0.9rem;
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 25px;
+        transition: 0.2s;
+    }
+
+        .btn-checkout:hover {
+            background-color: #2ed110;
+            color: #000;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container-fluid px-5 mt-4">
+    <div class="row">
+        <div class="col-lg-8 pe-lg-5 mb-5">
+            <h1 class="page-main-title text-white">XÁC NHẬN THANH TOÁN</h1>
+            <p style="color: #888; font-weight: 700; font-size: 0.8rem;">ĐẠI NHẠC HỘI: @suKien.TenHoaNhac</p>
+
+            <div class="order-info-card">
+                <div class="standard-ticket-banner">
+                    <i class="bi bi-ticket-perforated-fill me-2"></i> VÉ THƯỜNG - KHU VỰC ĐỨNG TỰ DO
+                </div>
+
+                <h4>THÔNG TIN GIAO DỊCH</h4>
+                <ul class="policy-list">
+                    <li><i class="bi bi-check-circle-fill"></i> Hạng vé Thường (Standard) không áp dụng chọn ghế trước. Vị trí của bạn sẽ phụ thuộc vào thời điểm bạn làm thủ tục check-in tại cổng rạp.</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Vé điện tử QR Code sẽ được gửi qua Email và cập nhật vào mục "Vé Của Tôi" ngay sau khi thanh toán thành công.</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Vui lòng hoàn tất thanh toán trong vòng 10 phút. Quá thời gian, hệ thống sẽ tự động hủy giao dịch để nhường chỗ cho người khác.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-5">
+            <div class="sidebar-checkout shadow-lg">
+                <div class="event-thumb-header">
+                    <h3 class="text-white thumb-title">@suKien.TenHoaNhac</h3>
+                </div>
+
+                <div class="bill-row">
+                    <span class="bill-label">HẠNG VÉ</span>
+                    <span class="bill-value" style="color: #fff; font-weight: 800;">VÉ THƯỜNG (STANDARD)</span>
+                </div>
+                <div class="bill-row">
+                    <span class="bill-label">VỊ TRÍ</span>
+                    <span class="bill-value" style="color: #aaa;">Khu vực đứng tự do</span>
+                </div>
+                <div class="bill-row">
+                    <span class="bill-label">SỐ LƯỢNG</span>
+                    <span class="bill-value">01 Vé</span>
+                </div>
+
+                <hr class="total-separator" />
+
+                <div class="total-row">
+                    <span class="total-label">TỔNG CỘNG</span>
+                    <span class="total-amount">1.200.000đ</span>
+                </div>
+
+                <span class="payment-section-title">PHƯƠNG THỨC THANH TOÁN</span>
+                <div class="pay-methods">
+                    <div class="pay-card active" onclick="switchPayment(this)">
+                        <div class="radio-circle"></div>
+                        <div class="pay-texts">
+                            <h4>THẺ TÍN DỤNG / GHI NỢ</h4>
+                            <p>Visa, Mastercard, JCB</p>
+                        </div>
+                    </div>
+                    <div class="pay-card" onclick="switchPayment(this)">
+                        <div class="radio-circle"></div>
+                        <div class="pay-texts">
+                            <h4>VÍ ĐIỆN TỬ</h4>
+                            <p>MoMo, ZaloPay, ShopeePay</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a asp-controller="Home" asp-action="VeCuaToi" class="btn-checkout">Xác Nhận & Thanh Toán</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchPayment(element) {
+        document.querySelectorAll('.pay-card').forEach(card => card.classList.remove('active'));
+        element.classList.add('active');
+    }
+</script>

@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Đăng Nhập - BACKSTAGE";
+    // Tắt Layout dùng chung để trang Login hiện full màn hình đen, không bị dính thanh Menu
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+            body {
+                background-color: #050505; /* Nền đen tuyền */
+                color: #ffffff;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            .login-box {
+                width: 100%;
+                max-width: 480px; /* Độ rộng form */
+                padding: 20px;
+            }
+
+            .text-neon {
+                color: #39ff14 !important;
+            }
+
+            .bg-neon {
+                background-color: #39ff14;
+                color: black;
+            }
+
+            .form-control-dark {
+                background-color: #0f0f0f;
+                border: 1px solid #222;
+                color: white;
+                padding: 14px 15px;
+                border-radius: 2px;
+            }
+
+                .form-control-dark:focus {
+                    background-color: #0f0f0f;
+                    border-color: #39ff14;
+                    color: white;
+                    box-shadow: none;
+                }
+
+            .form-label-custom {
+                font-size: 0.75rem;
+                color: #888;
+                text-transform: uppercase;
+                font-weight: 700;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+            }
+
+            .btn-login {
+                background-color: #39ff14;
+                color: black;
+                font-weight: 800;
+                font-size: 1.2rem;
+                padding: 15px;
+                border: none;
+                border-radius: 2px;
+                width: 100%;
+                transition: 0.3s;
+                margin-top: 15px;
+            }
+
+                .btn-login:hover {
+                    background-color: #2ed110;
+                }
+
+            /* Dải phân cách "Hoặc đăng nhập bằng" */
+            .divider {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                margin: 35px 0;
+                color: #777;
+                font-size: 0.75rem;
+                font-weight: bold;
+            }
+
+                .divider::before, .divider::after {
+                    content: '';
+                    flex: 1;
+                    border-bottom: 1px solid #333;
+                }
+
+                .divider:not(:empty)::before {
+                    margin-right: 1em;
+                }
+
+                .divider:not(:empty)::after {
+                    margin-left: 1em;
+                }
+
+            /* Nút Google & Facebook */
+            .btn-social {
+                background-color: transparent;
+                border: 1px solid #333;
+                color: white;
+                padding: 12px;
+                font-size: 0.8rem;
+                font-weight: bold;
+                border-radius: 2px;
+                width: 48%;
+                text-transform: uppercase;
+                transition: 0.3s;
+            }
+
+                .btn-social:hover {
+                    background-color: #1a1a1a;
+                }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="text-center mb-5">
+            <h1 class="text-neon fw-bold mb-2" style="font-size: 3rem; letter-spacing: -1px;">BACKSTAGE</h1>
+            <h5 class="fw-bold text-white" style="letter-spacing: 2px;">ĐĂNG NHẬP</h5>
+        </div>
+
+        <form method="post" asp-controller="Home" asp-action="Login">
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger" style="background-color: #ff3333; color: white; border: none; font-size: 0.9rem; padding: 10px;">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            <div class="mb-4">
+                <label class="form-label-custom">EMAIL HOẶC SỐ ĐIỆN THOẠI</label>
+                <input type="text" name="email" class="form-control form-control-dark" placeholder="nhat@gmail.com">
+            </div>
+
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="form-label-custom">MẬT KHẨU</label>
+                    <a href="#" class="text-neon text-decoration-none" style="font-size: 0.75rem; font-weight: bold;">QUÊN MẬT KHẨU?</a>
+                </div>
+                <input type="password" name="password" class="form-control form-control-dark" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn-login">ĐĂNG NHẬP</button>
+        </form>
+
+        <div class="divider">HOẶC ĐĂNG NHẬP BẰNG</div>
+
+        <div class="d-flex justify-content-between mb-5">
+            <button class="btn-social">GOOGLE</button>
+            <button class="btn-social">FACEBOOK</button>
+        </div>
+
+        <div class="text-center">
+            <span style="color: #888; font-size: 0.9rem;">Bạn chưa có tài khoản?</span>
+            <a href="#" class="text-neon text-decoration-none fw-bold ms-1" style="font-size: 0.9rem;">Đăng ký ngay</a>
+        </div>
+    </div>
+</body>
+</html>

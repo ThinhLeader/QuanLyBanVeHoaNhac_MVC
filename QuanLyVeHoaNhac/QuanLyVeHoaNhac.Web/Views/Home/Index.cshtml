@@ -1,8 +1,264 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<QuanLyVeHoaNhac.Models.HoaNhacViewModel>
+
+@{
+    ViewData["Title"] = "Trang Chủ - BACKSTAGE";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* Bọc toàn bộ trang chủ */
+    .home-wrapper {
+        padding: 20px 50px;
+    }
+
+    /* ===== BANNER HERO ===== */
+    .hero-banner {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.1) 100%), url('/images/event1.jpg') center/cover no-repeat;
+        border-radius: 4px;
+        padding: 80px 60px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+
+    .hero-tag {
+        background-color: #39ff14;
+        color: #000;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 2px;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin: 15px 0 30px 0;
+        color: #fff;
+    }
+
+    .btn-hero {
+        background-color: #39ff14;
+        color: #000;
+        font-weight: 800;
+        font-size: 0.9rem;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 2px;
+        transition: 0.2s;
+    }
+
+        .btn-hero:hover {
+            background-color: #2ed110;
+        }
+
+    .hero-info {
+        border-left: 2px solid #333;
+        padding-left: 20px;
+        margin-left: 25px;
+    }
+
+    /* ===== DANH SÁCH SỰ KIỆN ===== */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        border-left: 4px solid #39ff14;
+        padding-left: 15px;
+        line-height: 1;
+        margin: 0;
+    }
+
+    .view-all {
+        color: #39ff14;
+        font-weight: 800;
+        font-size: 0.85rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .event-card {
+        background: transparent;
+        border: none;
+        margin-bottom: 30px;
+    }
+
+    .event-img-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+        .event-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .tag-neon {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #39ff14;
+        color: #000;
+        font-weight: 800;
+        font-size: 0.65rem;
+        padding: 4px 8px;
+        border-radius: 2px;
+    }
+
+    .tag-danger {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #ff3333;
+        color: #fff;
+        font-weight: 800;
+        font-size: 0.65rem;
+        padding: 4px 8px;
+        border-radius: 2px;
+    }
+
+    .event-meta {
+        font-size: 0.7rem;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    .event-title {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        letter-spacing: -0.5px;
+    }
+
+    .event-price {
+        color: #39ff14;
+        font-weight: 800;
+        font-size: 1.05rem;
+        margin: 0;
+    }
+
+    /* ===== KHỐI TRẢI NGHIỆM ===== */
+    .experience-section {
+        background: linear-gradient(to right, rgba(10, 10, 10, 0.95) 40%, rgba(10, 10, 10, 0.4) 100%), url('/images/event2.jpg') center/cover;
+        border: 1px solid #222;
+        border-radius: 4px;
+        padding: 60px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .exp-subtitle {
+        color: #39ff14;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .exp-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.2;
+        margin: 15px 0;
+        letter-spacing: -1px;
+        max-width: 500px;
+    }
+
+    .exp-desc {
+        color: #888;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 450px;
+        margin-bottom: 35px;
+    }
+
+    .btn-outline-neon {
+        background: transparent;
+        color: #39ff14;
+        border: 1px solid #39ff14;
+        padding: 12px 25px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+
+        .btn-outline-neon:hover {
+            background: #39ff14;
+            color: #000;
+        }
+</style>
+
+<div class="home-wrapper">
+    <div class="hero-banner">
+        <span class="hero-tag">SỰ KIỆN NỔI BẬT</span>
+        <h1 class="hero-title">NOCTURNAL RHYTHMS<br>2026</h1>
+        <div class="d-flex align-items-center">
+            <button class="btn-hero">XEM CHI TIẾT →</button>
+            <div class="hero-info">
+                <p class="mb-0 text-white fw-bold" style="font-size: 0.85rem;">SÂN VẬN ĐỘNG MỸ ĐÌNH, HÀ NỘI</p>
+                <p class="mb-0" style="color: #aaa; font-size: 0.8rem;">20.12.2024 • 19:00</p>
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 30px; right: 50px; display: flex; gap: 5px;">
+            <div style="width: 30px; height: 3px; background: #39ff14;"></div>
+            <div style="width: 30px; height: 3px; background: #444;"></div>
+            <div style="width: 30px; height: 3px; background: #444;"></div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">SỰ KIỆN NỔI BẬT</h2>
+        <a href="#" class="view-all">XEM TẤT CẢ</a>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <a asp-controller="Home" asp-action="ChiTietSuKien" asp-route-id="@item.MaHoaNhac" class="text-decoration-none">
+                    <div class="event-card" style="cursor: pointer;">
+                        <div class="event-img-wrap">
+                            <img src="@item.HinhAnh" alt="@item.TenHoaNhac" class="img-fluid">
+                            @if (!string.IsNullOrEmpty(item.TheTag))
+                            {
+                                <span class="@(item.TheTag == "NỔI BẬT" ? "tag-neon" : "tag-danger")">@item.TheTag</span>
+                            }
+                        </div>
+                        <div class="p-3">
+                            <p class="event-meta mb-1 text-muted">@item.ThoiGian • @item.DiaDiem</p>
+                            <h5 class="event-title text-white fw-bold mb-2">@item.TenHoaNhac</h5>
+                            <p class="event-price text-neon fw-bold mb-0">Từ @item.GiaVeTu.ToString("N0") VNĐ</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+
+    <div class="experience-section">
+        <span class="exp-subtitle">TRẢI NGHIỆM</span>
+        <h2 class="exp-title">ÂM NHẠC KHÔNG GIỚI HẠN TẠI<br>BACKSTAGE</h2>
+        <p class="exp-desc">
+            Sẵn sàng để cháy hết mình cùng những nghệ sĩ hàng đầu thế giới ngay tại sân khấu của bạn. Khám phá những giai điệu mới nhất mỗi ngày.
+        </p>
+        <button class="btn-outline-neon">KHÁM PHÁ NGAY</button>
+    </div>
 </div>

@@ -1,0 +1,255 @@
+﻿@model QuanLyVeHoaNhac.Models.HoaNhacViewModel
+@{
+    var dsLoaiVe = ViewBag.DsLoaiVe as List<QuanLyVeHoaNhac.Models.LoaiVe>;
+    ViewData["Title"] = Model.TenHoaNhac;
+}
+
+<style>
+    body {
+        background-color: #0b0d0b !important;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .text-neon {
+        color: #39ff14 !important;
+    }
+
+    .bg-neon {
+        background-color: #39ff14 !important;
+        color: #000 !important;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        border-left: 4px solid #39ff14;
+        padding-left: 12px;
+    }
+
+    /* Card danh sách loại vé bên trái */
+    .ticket-info-card {
+        background-color: #121412;
+        border: 1px solid #1c201c;
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+
+    .badge-premium {
+        background-color: rgba(57, 255, 20, 0.15);
+        color: #39ff14;
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 4px 8px;
+        border-radius: 3px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .ticket-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .ticket-desc {
+        color: #888;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        line-height: 1.5;
+    }
+
+    .ticket-price-row {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-top: 10px;
+    }
+
+    .ticket-remain {
+        font-size: 0.8rem;
+        color: #555;
+        margin-left: 10px;
+    }
+
+    .policy-box {
+        background-color: #121412;
+        border: 1px solid #1c201c;
+        border-radius: 6px;
+        padding: 20px;
+    }
+
+    .policy-title {
+        font-size: 0.9rem;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .policy-desc {
+        font-size: 0.8rem;
+        color: #666;
+        line-height: 1.5;
+    }
+
+    /* Khối sự kiện bên phải */
+    .event-sidebar-card {
+        background-color: #121412;
+        border: 1px solid #1c201c;
+        border-radius: 8px;
+        padding: 20px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .sidebar-img {
+        width: 100%;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-title {
+        font-size: 1.6rem;
+        font-weight: 900;
+        line-height: 1.2;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .meta-line {
+        font-size: 0.85rem;
+        color: #aaa;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .artist-title-header {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #555;
+        letter-spacing: 1px;
+        margin-top: 25px;
+        margin-bottom: 8px;
+    }
+
+    .artist-badge-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .artist-mini-tag {
+        background-color: #1a1e1a;
+        border: 1px solid #252a25;
+        color: #aaa;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .btn-buy-now {
+        background-color: #39ff14;
+        color: #000;
+        font-weight: 800;
+        font-size: 1rem;
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 25px;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 25px;
+        transition: 0.2s;
+    }
+
+        .btn-buy-now:hover {
+            background-color: #2ed110;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(57, 255, 20, 0.3);
+        }
+
+    .footer-crypto-text {
+        font-size: 0.65rem;
+        color: #444;
+        text-align: center;
+        font-weight: 700;
+        margin-top: 10px;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<div class="container mt-4 px-4">
+    <div class="row">
+        <div class="col-lg-8 pe-lg-4">
+            <h3 class="section-title text-neon mb-4">LỰA CHỌN LOẠI VÉ</h3>
+
+            @foreach (var ticket in dsLoaiVe)
+            {
+                <div class="ticket-info-card">
+                    <div class="d-flex align-items-center gap-2">
+                        @if (!string.IsNullOrEmpty(ticket.TagHang))
+                        {
+                            <span class="badge-premium">@ticket.TagHang</span>
+                        }
+                        <span class="ticket-name">@ticket.TenLoaiVe</span>
+                    </div>
+                    <p class="ticket-desc">@ticket.MoTaChiTiet</p>
+                    <div class="ticket-price-row text-neon">
+                        @ticket.GiaVe.ToString("N0")đ
+                        <span class="ticket-remain">Còn lại: @ticket.SoLuongConLai vé</span>
+                    </div>
+                </div>
+            }
+
+            <div class="row g-3 mt-2 mb-5">
+                <div class="col-md-6">
+                    <div class="policy-box">
+                        <div class="policy-title text-white"><i class="bi bi-shield-check text-neon me-2"></i>BẢO MẬT TUYỆT ĐỐI</div>
+                        <p class="policy-desc">Mỗi vé đi kèm với một QR Code duy nhất được mã hóa chống gian lận và chuyển nhượng bất hợp pháp.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="policy-box">
+                        <div class="policy-title text-white"><i class="bi bi-lightning-charge text-neon me-2"></i>NHẬN VÉ TỨC THÌ</div>
+                        <p class="policy-desc">Ngay sau khi thanh toán thành công, vé sẽ được gửi trực tiếp vào ví điện tử và email của bạn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-5">
+            <div class="event-sidebar-card shadow-lg">
+                <img src="@Model.HinhAnh" class="sidebar-img" alt="@Model.TenHoaNhac">
+                <h3 class="sidebar-title text-white">@Model.TenHoaNhac</h3>
+
+                <div class="meta-line">
+                    <i class="bi bi-geo-alt-fill text-neon"></i>
+                    <span>@Model.DiaDiem</span>
+                </div>
+                <div class="meta-line">
+                    <i class="bi bi-calendar-event text-neon"></i>
+                    <span>@Model.ThoiGian</span>
+                </div>
+
+                <div class="artist-title-header">NGHỆ SĨ THAM GIA</div>
+                <div class="artist-badge-wrap">
+                    @foreach (var ngheSi in Model.NgheSi.Split(','))
+                    {
+                        <span class="artist-mini-tag">@ngheSi.Trim()</span>
+                    }
+                </div>
+
+                <a asp-controller="Home" asp-action="DatVe" asp-route-id="@Model.MaHoaNhac" class="btn-buy-now">
+                    Mua Vé
+                </a>
+                <div class="footer-crypto-text">GIAO DỊCH ĐƯỢC MÃ HÓA 256-BIT</div>
+            </div>
+        </div>
+    </div>
+</div>

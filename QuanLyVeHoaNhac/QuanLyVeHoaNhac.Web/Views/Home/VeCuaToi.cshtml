@@ -1,0 +1,437 @@
+﻿@model QuanLyVeHoaNhac.Models.VeViewModel
+@{
+    ViewData["Title"] = "Quản Lý Vé - BACKSTAGE";
+}
+
+<style>
+    body {
+        background-color: #080a08 !important;
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .text-neon {
+        color: #39ff14 !important;
+    }
+
+    .bg-neon {
+        background-color: #39ff14 !important;
+        color: #000 !important;
+    }
+
+    /* Tiêu đề trang */
+    .page-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        margin-bottom: 25px;
+    }
+
+    /* Custom Tabs */
+    .ticket-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid #333;
+        color: #aaa;
+        font-size: 0.8rem;
+        font-weight: 800;
+        padding: 10px 25px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .tab-btn.active {
+            background: #39ff14;
+            color: #000;
+            border-color: #39ff14;
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: #555;
+            color: #fff;
+        }
+
+    /* CỘT TRÁI: DANH SÁCH VÉ (DẠNG THẺ NGANG) */
+    .ticket-horizontal-card {
+        display: flex;
+        background-color: #0c0f0c;
+        border: 1px solid #1a221a;
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: 0.2s;
+        gap: 20px;
+    }
+
+        .ticket-horizontal-card:hover {
+            border-color: #2a3a2a;
+        }
+
+    .ticket-img-box {
+        width: 220px;
+        height: 140px;
+        flex-shrink: 0;
+    }
+
+        .ticket-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+    .ticket-card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+
+    .tc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tc-badge {
+        background-color: rgba(57, 255, 20, 0.1);
+        border: 1px solid #39ff14;
+        color: #39ff14;
+        font-size: 0.6rem;
+        font-weight: 800;
+        padding: 3px 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .tc-id {
+        color: #39ff14;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .tc-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin: 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .tc-meta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .meta-label {
+        font-size: 0.65rem;
+        color: #666;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+        display: block;
+    }
+
+    .meta-value {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #ccc;
+    }
+
+    .tc-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .btn-xem-ve {
+        background: #39ff14;
+        color: #000;
+        border: none;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 8px 25px;
+        text-transform: uppercase;
+    }
+
+    .btn-chi-tiet {
+        background: transparent;
+        border: 1px solid #444;
+        color: #aaa;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 8px 25px;
+        text-transform: uppercase;
+    }
+
+        .btn-chi-tiet:hover {
+            border-color: #888;
+            color: #fff;
+        }
+
+    /* CỘT PHẢI: CHI TIẾT VÉ ĐIỆN TỬ */
+    .right-sidebar-wrapper {
+        border-left: 2px solid #1a221a;
+        padding-left: 40px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .preview-header {
+        border-left: 3px solid #39ff14;
+        padding-left: 15px;
+        margin-bottom: 30px;
+    }
+
+    .ph-status {
+        font-size: 0.65rem;
+        font-weight: 900;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .ph-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #fff;
+        margin: 5px 0;
+    }
+
+    .ph-desc {
+        font-size: 0.75rem;
+        color: #666;
+        margin: 0;
+    }
+
+    /* Khung vé điện tử */
+    .digital-ticket-box {
+        border: 1px solid #1f3a1f;
+        padding: 30px 20px;
+        text-align: center;
+        background: #0a0d0a;
+        position: relative;
+    }
+
+    .dt-top-label {
+        font-size: 0.6rem;
+        color: #666;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+    }
+
+    .dt-show-name {
+        font-size: 1.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+    }
+
+    /* Vùng chứa QR Code trắng tinh khôi */
+    .qr-render-zone {
+        background: #fff;
+        padding: 15px;
+        display: inline-block;
+        width: 180px;
+        height: 180px;
+        margin-bottom: 30px;
+    }
+
+        .qr-render-zone img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    .dt-bottom-info {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        padding: 0 20px;
+    }
+
+    .dt-b-label {
+        font-size: 0.65rem;
+        color: #888;
+        font-weight: 800;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .dt-b-value {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    /* Khối lưu ý & Nút tải vé */
+    .note-box {
+        background: #111611;
+        padding: 15px;
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        border-radius: 4px;
+        border: 1px solid #1a221a;
+    }
+
+        .note-box i {
+            color: #888;
+        }
+
+    .note-content strong {
+        font-size: 0.75rem;
+        color: #aaa;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .note-content p {
+        font-size: 0.7rem;
+        color: #666;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .btn-download-full {
+        background: #39ff14;
+        color: #000;
+        font-size: 0.9rem;
+        font-weight: 900;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        text-transform: uppercase;
+        margin-top: 20px;
+        letter-spacing: 0.5px;
+        transition: 0.2s;
+    }
+
+        .btn-download-full:hover {
+            background: #2ed110;
+            box-shadow: 0 0 15px rgba(57,255,20,0.3);
+        }
+</style>
+
+<div class="container-fluid px-5 mt-4">
+    <h1 class="page-title">VÉ CỦA TÔI</h1>
+
+    <div class="row">
+        <div class="col-lg-8 pe-lg-5 mb-5">
+
+            <div class="ticket-tabs">
+                <button class="tab-btn active">SẮP DIỄN RA (2)</button>
+                <button class="tab-btn">ĐÃ KẾT THÚC (12)</button>
+            </div>
+
+            <div class="ticket-horizontal-card">
+                <div class="ticket-img-box">
+                    <img src="@Model.HinhAnh" alt="@Model.TenHoaNhac">
+                </div>
+                <div class="ticket-card-body">
+                    <div>
+                        <div class="tc-header">
+                            <span class="tc-badge">@Model.LoaiVe</span>
+                            <span class="tc-id">@Model.MaVe</span>
+                        </div>
+                        <h3 class="tc-title">@Model.TenHoaNhac</h3>
+                        <div class="tc-meta-grid">
+                            <div>
+                                <span class="meta-label">THỜI GIAN</span>
+                                <span class="meta-value">@Model.ThoiGian</span>
+                            </div>
+                            <div>
+                                <span class="meta-label">ĐỊA ĐIỂM</span>
+                                <span class="meta-value">@Model.DiaDiem</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tc-actions">
+                        <button class="btn-xem-ve">XEM VÉ</button>
+                        <button class="btn-chi-tiet">CHI TIẾT</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-horizontal-card" style="opacity: 0.7;">
+                <div class="ticket-img-box">
+                    <img src="/images/event2.jpg" onerror="this.src='https://images.unsplash.com/photo-1540039155733-d769614ab129?q=80&w=400&auto=format&fit=crop';" alt="Midnight Pulse">
+                </div>
+                <div class="ticket-card-body">
+                    <div>
+                        <div class="tc-header">
+                            <span class="tc-badge">VIP ACCESS</span>
+                            <span class="tc-id">#BS-99044</span>
+                        </div>
+                        <h3 class="tc-title">MIDNIGHT PULSE FESTIVAL</h3>
+                        <div class="tc-meta-grid">
+                            <div>
+                                <span class="meta-label">THỜI GIAN</span>
+                                <span class="meta-value">18:00, 22 THÁNG 01, 2025</span>
+                            </div>
+                            <div>
+                                <span class="meta-label">ĐỊA ĐIỂM</span>
+                                <span class="meta-value">NHÀ THI ĐẤU PHÚ THỌ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tc-actions">
+                        <button class="btn-xem-ve">XEM VÉ</button>
+                        <button class="btn-chi-tiet">CHI TIẾT</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 mb-5">
+            <div class="right-sidebar-wrapper">
+
+                <div class="preview-header">
+                    <div class="ph-status">ĐANG HIỂN THỊ</div>
+                    <h4 class="ph-title">TICKET INFO & CONFIRMATION</h4>
+                    <p class="ph-desc">Review your selection before checkout</p>
+                </div>
+
+                <div class="digital-ticket-box">
+                    <div class="dt-top-label">VÉ ĐIỆN TỬ / DIGITAL TICKET</div>
+                    <div class="dt-show-name text-white">@Model.TenHoaNhac</div>
+
+                    <div class="qr-render-zone">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=@Model.MaVe&color=000000" alt="QR Code">
+                    </div>
+
+                    <div class="dt-bottom-info">
+                        <div>
+                            <span class="dt-b-label">MÃ GHẾ</span>
+                            <span class="dt-b-value">@Model.ViTriGhe</span>
+                        </div>
+                        <div class="text-end">
+                            <span class="dt-b-label">MÃ VÉ</span>
+                            <span class="dt-b-value">@Model.MaVe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <i class="bi bi-ticket-detailed"></i>
+                    <div class="note-content">
+                        <strong>Lưu ý:</strong>
+                        <p>Vui lòng xuất trình mã QR này tại cổng kiểm soát. Không chia sẻ mã này với bất kỳ ai.</p>
+                    </div>
+                </div>
+
+                <button class="btn-download-full">TẢI VÉ XUỐNG</button>
+            </div>
+        </div>
+    </div>
+</div>

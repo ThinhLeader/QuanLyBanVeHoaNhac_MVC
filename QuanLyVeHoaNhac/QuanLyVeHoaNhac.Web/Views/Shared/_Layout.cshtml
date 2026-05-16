@@ -1,50 +1,270 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - QuanLyVeHoaNhac</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/QuanLyVeHoaNhac.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+            /* CSS Tổng thể */
+            body {
+                background-color: #000000;
+                color: #ffffff;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            /* ===== NAVBAR & HEADER ===== */
+            .navbar-custom {
+                background-color: #000000;
+                border-bottom: 1px solid #1a1a1a;
+                padding: 12px 50px;
+            }
+
+            .logo-neon {
+                color: #39ff14 !important;
+                font-weight: 900;
+                font-size: 1.8rem;
+                letter-spacing: -1px;
+                text-decoration: none;
+            }
+
+            .nav-link {
+                color: #ccc !important;
+                font-weight: 700;
+                font-size: 0.85rem;
+                margin: 0 15px;
+                letter-spacing: 0.5px;
+                transition: 0.2s;
+            }
+
+                .nav-link.active, .nav-link:hover {
+                    color: #39ff14 !important;
+                }
+
+                .nav-link.active {
+                    border-bottom: 2px solid #39ff14;
+                    padding-bottom: 2px;
+                }
+
+            /* Thanh tìm kiếm */
+            .search-container {
+                position: relative;
+                margin-right: 30px;
+            }
+
+            .search-box {
+                background-color: transparent;
+                border: 1px solid #333;
+                color: white;
+                border-radius: 4px;
+                padding: 8px 35px 8px 15px; /* Để trống chỗ bên phải cho kính lúp */
+                font-size: 0.8rem;
+                width: 280px;
+                transition: 0.3s;
+            }
+
+                .search-box:focus {
+                    border-color: #39ff14;
+                    outline: none;
+                    background-color: #0a0a0a;
+                }
+
+            .search-icon {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #666;
+                font-size: 0.85rem;
+            }
+
+            /* Icon và Avatar Người dùng */
+            .header-icon {
+                color: #fff;
+                font-size: 1.1rem;
+                margin-right: 20px;
+                transition: 0.2s;
+                cursor: pointer;
+            }
+
+                .header-icon:hover {
+                    color: #39ff14;
+                }
+
+            .user-profile {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .avatar-circle {
+                background-color: #39ff14;
+                color: #000;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.2rem;
+            }
+
+            .user-info {
+                line-height: 1.1;
+                margin-left: 10px;
+            }
+
+            .user-name {
+                color: #fff;
+                font-size: 0.8rem;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .user-role {
+                color: #888;
+                font-size: 0.65rem;
+            }
+
+            /* FOOTER */
+            footer {
+                background-color: #000000;
+                padding: 60px 50px 30px 50px;
+                border-top: 1px solid #111;
+            }
+
+            .footer-heading {
+                color: #fff;
+                font-size: 0.85rem;
+                font-weight: 800;
+                letter-spacing: 1px;
+                margin-bottom: 25px;
+                text-transform: uppercase;
+            }
+
+            .footer-link {
+                color: #888;
+                text-decoration: none;
+                font-size: 0.85rem;
+                display: block;
+                margin-bottom: 15px;
+                transition: 0.2s;
+            }
+
+                .footer-link:hover {
+                    color: #39ff14;
+                }
+
+            .social-circle {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                border: 1px solid #333;
+                border-radius: 50%;
+                color: #fff;
+                margin-right: 15px;
+                transition: 0.3s;
+                text-decoration: none;
+            }
+
+                .social-circle:hover {
+                    border-color: #39ff14;
+                    color: #39ff14;
+                }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QuanLyVeHoaNhac</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+        <nav class="navbar navbar-expand-sm navbar-custom">
+            <div class="container-fluid p-0">
+                <a class="logo-neon me-5" asp-controller="Home" asp-action="Index">BACKSTAGE</a>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-bold @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active text-neon" : "text-white")" asp-controller="Home" asp-action="Index">TRANG CHỦ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link fw-bold @(ViewContext.RouteData.Values["action"]?.ToString() == "VeCuaToi" ? "active text-neon" : "text-white")" asp-controller="Home" asp-action="VeCuaToi">VÉ CỦA TÔI</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold text-white" href="#">HỖ TRỢ</a>
                         </li>
                     </ul>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="search-container">
+                        <input type="text" class="search-box" placeholder="TÌM KIẾM SỰ KIỆN, NGHỆ SĨ...">
+                        <i class="bi bi-search search-icon"></i>
+                    </div>
+
+                    <i class="bi bi-bell header-icon"></i>
+                    <i class="bi bi-gear header-icon"></i>
+
+                    <div class="user-profile">
+                        <div class="avatar-circle">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name fw-bold">QUỐC NHẬT</div>
+                            <div class="user-role text-muted" style="font-size: 0.8rem;">Khách hàng</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - QuanLyVeHoaNhac - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="row mb-5">
+            <div class="col-lg-4 pr-5">
+                <h2 class="logo-neon mb-4" style="font-size: 2rem;">BACKSTAGE</h2>
+                <p style="color: #888; font-size: 0.85rem; line-height: 1.6; max-width: 250px;">
+                    Kết nối bạn với những cung bậc cảm xúc âm nhạc đỉnh cao.
+                </p>
+            </div>
+
+            <div class="col-lg-2">
+                <h6 class="footer-heading">KHÁM PHÁ</h6>
+                <a href="#" class="footer-link">Tất cả sự kiện</a>
+                <a href="#" class="footer-link">Địa điểm</a>
+                <a href="#" class="footer-link">Nghệ sĩ</a>
+                <a href="#" class="footer-link">Tin tức</a>
+            </div>
+
+            <div class="col-lg-3">
+                <h6 class="footer-heading">HỖ TRỢ</h6>
+                <a href="#" class="footer-link">Điều khoản sử dụng</a>
+                <a href="#" class="footer-link">Chính sách bảo mật</a>
+                <a href="#" class="footer-link">Câu hỏi thường gặp</a>
+                <a href="#" class="footer-link">Liên hệ</a>
+            </div>
+
+            <div class="col-lg-3">
+                <h6 class="footer-heading">KẾT NỐI</h6>
+                <div class="d-flex mt-3">
+                    <a href="#" class="social-circle"><i class="bi bi-globe"></i></a>
+                    <a href="#" class="social-circle"><i class="bi bi-share-fill"></i></a>
+                    <a href="#" class="social-circle"><i class="bi bi-question-circle"></i></a>
+                </div>
+
+                <div class="mt-5" style="color: #666; font-size: 0.7rem; line-height: 1.5; letter-spacing: 0.5px;">
+                    <p class="mb-0">© 2024 BACKSTAGE ENTERTAINMENT. BẢO LƯU MỌI QUYỀN.</p>
+                    <p>ALL ACCESS GRANTED.</p>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

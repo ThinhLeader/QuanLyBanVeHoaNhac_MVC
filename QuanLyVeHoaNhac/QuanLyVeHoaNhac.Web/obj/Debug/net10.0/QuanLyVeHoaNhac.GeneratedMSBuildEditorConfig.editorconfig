@@ -11,41 +11,65 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = QuanLyVeHoaNhac
 build_property.RootNamespace = QuanLyVeHoaNhac
-build_property.ProjectDir = D:\DAIHOC\Ki-2-2526\C#\QuanLyBanVeHoaNhac_MVC\QuanLyVeHoaNhac\QuanLyVeHoaNhac.Web\
+build_property.ProjectDir = D:\Workspage\225\C#\QuanLyBanVeHoaNhac_MVC\QuanLyVeHoaNhac\QuanLyVeHoaNhac.Web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
-build_property.RazorLangVersion = 9.0
+build_property.RazorLangVersion = 10.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\DAIHOC\Ki-2-2526\C#\QuanLyBanVeHoaNhac_MVC\QuanLyVeHoaNhac\QuanLyVeHoaNhac.Web
+build_property.MSBuildProjectDirectory = D:\Workspage\225\C#\QuanLyBanVeHoaNhac_MVC\QuanLyVeHoaNhac\QuanLyVeHoaNhac.Web
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/Index.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/ChiTietSuKien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaGlUaWV0U3VLaWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/ChonGhe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaG9uR2hlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/DatVe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXRWZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/Privacy.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/Error.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/ThanhToan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaGFuaFRvYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Home/VeCuaToi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWZUN1YVRvaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/_ViewImports.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/_ViewStart.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/DAIHOC/Ki-2-2526/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/_Layout.cshtml]
+[D:/Workspage/225/C\#/QuanLyBanVeHoaNhac_MVC/QuanLyVeHoaNhac/QuanLyVeHoaNhac.Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-7nn28vwayb
