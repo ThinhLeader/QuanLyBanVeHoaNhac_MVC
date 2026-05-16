@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLyVeHoaNhac.Models.HoaNhac>
+﻿@model IEnumerable<QuanLyVeHoaNhac.Models.HoaNhacViewModel>
 
 @{
     ViewData["Title"] = "Trang Chủ - BACKSTAGE";
@@ -232,23 +232,23 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-md-3">
-                <div class="event-card">
-                    <div class="event-img-wrap">
-                        <img src="@item.HinhAnhUrl" alt="@item.TenHoaNhac">
-                        @if (item.TheTag == "NỔI BẬT")
-                        {
-                            <span class="tag-neon">NỔI BẬT</span>
-                        }
-                        else if (item.TheTag == "SẮP HẾT VÉ")
-                        {
-                            <span class="tag-danger">SẮP HẾT VÉ</span>
-                        }
+            <div class="col-md-3 mb-4">
+                <a asp-controller="Home" asp-action="ChiTietSuKien" asp-route-id="@item.MaHoaNhac" class="text-decoration-none">
+                    <div class="event-card" style="cursor: pointer;">
+                        <div class="event-img-wrap">
+                            <img src="@item.HinhAnh" alt="@item.TenHoaNhac" class="img-fluid">
+                            @if (!string.IsNullOrEmpty(item.TheTag))
+                            {
+                                <span class="@(item.TheTag == "NỔI BẬT" ? "tag-neon" : "tag-danger")">@item.TheTag</span>
+                            }
+                        </div>
+                        <div class="p-3">
+                            <p class="event-meta mb-1 text-muted">@item.ThoiGian • @item.DiaDiem</p>
+                            <h5 class="event-title text-white fw-bold mb-2">@item.TenHoaNhac</h5>
+                            <p class="event-price text-neon fw-bold mb-0">Từ @item.GiaVeTu.ToString("N0") VNĐ</p>
+                        </div>
                     </div>
-                    <p class="event-meta">@item.ThoiGian • @item.DiaDiem</p>
-                    <h3 class="event-title">@item.TenHoaNhac</h3>
-                    <p class="event-price">Từ @item.GiaVeTu.ToString("N0") VNĐ</p>
-                </div>
+                </a>
             </div>
         }
     </div>
