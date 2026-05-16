@@ -102,9 +102,8 @@ namespace QuanLyVeHoaNhac.Controllers
             // ĐIỀU KIỆN QUAN TRỌNG: Nếu là vé thường (ID 3) thì không cho chọn ghế, đẩy về trang kết quả
             if (loaiVeId == 3)
             {
-                return RedirectToAction("VeCuaToi");
+                return RedirectToAction("ThanhToan", new { id = id });
             }
-
             // Lấy thông tin show để hiện ở cột phải
             var suKien = new HoaNhacViewModel
             {
@@ -134,6 +133,21 @@ namespace QuanLyVeHoaNhac.Controllers
                 }
             }
             return View(danhSachGhe);
+        }
+        public IActionResult ThanhToan(int id)
+        {
+            // Bốc thông tin sự kiện ra để làm hoá đơn
+            var suKien = new HoaNhacViewModel
+            {
+                MaHoaNhac = id,
+                TenHoaNhac = "NEON PULSE 2024",
+                DiaDiem = "SÂN VẬN ĐỘNG QUỐC GIA",
+                GiaVeTu = 1200000, // Giá vé thường
+                HinhAnh = "/images/event1.jpg"
+            };
+            ViewBag.SuKien = suKien;
+
+            return View();
         }
         public IActionResult VeCuaToi()
         {

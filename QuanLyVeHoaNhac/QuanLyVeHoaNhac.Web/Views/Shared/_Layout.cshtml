@@ -184,9 +184,15 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link active" asp-action="Index">TRANG CHỦ</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="VeCuaToi">VÉ CỦA TÔI</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">HỖ TRỢ</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active text-neon" : "text-white")" asp-controller="Home" asp-action="Index">TRANG CHỦ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold @(ViewContext.RouteData.Values["action"]?.ToString() == "VeCuaToi" ? "active text-neon" : "text-white")" asp-controller="Home" asp-action="VeCuaToi">VÉ CỦA TÔI</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold text-white" href="#">HỖ TRỢ</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -204,8 +210,8 @@
                             <i class="bi bi-person-fill"></i>
                         </div>
                         <div class="user-info">
-                            <div class="user-name">VĂN A</div>
-                            <div class="user-role">Khách hàng</div>
+                            <div class="user-name fw-bold">QUỐC NHẬT</div>
+                            <div class="user-role text-muted" style="font-size: 0.8rem;">Khách hàng</div>
                         </div>
                     </div>
                 </div>
