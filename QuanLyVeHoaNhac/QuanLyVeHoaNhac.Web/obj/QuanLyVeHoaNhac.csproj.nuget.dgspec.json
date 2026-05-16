@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DAIHOC\\Ki-2-2526\\C#\\QuanLyBanVeHoaNhac_MVC\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj": {}
+    "F:\\hoc225\\qlhoanhac\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj": {}
   },
   "projects": {
-    "D:\\DAIHOC\\Ki-2-2526\\C#\\QuanLyBanVeHoaNhac_MVC\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj": {
+    "F:\\hoc225\\qlhoanhac\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DAIHOC\\Ki-2-2526\\C#\\QuanLyBanVeHoaNhac_MVC\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj",
+        "projectUniqueName": "F:\\hoc225\\qlhoanhac\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj",
         "projectName": "QuanLyVeHoaNhac",
-        "projectPath": "D:\\DAIHOC\\Ki-2-2526\\C#\\QuanLyBanVeHoaNhac_MVC\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj",
-        "packagesPath": "C:\\Users\\levan\\.nuget\\packages\\",
-        "outputPath": "D:\\DAIHOC\\Ki-2-2526\\C#\\QuanLyBanVeHoaNhac_MVC\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\obj\\",
+        "projectPath": "F:\\hoc225\\qlhoanhac\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\QuanLyVeHoaNhac.csproj",
+        "packagesPath": "C:\\Users\\THANH TIEN\\.nuget\\packages\\",
+        "outputPath": "F:\\hoc225\\qlhoanhac\\QuanLyVeHoaNhac\\QuanLyVeHoaNhac.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\levan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THANH TIEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
@@ -70,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
