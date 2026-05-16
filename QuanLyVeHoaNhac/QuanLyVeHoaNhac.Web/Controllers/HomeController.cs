@@ -135,6 +135,23 @@ namespace QuanLyVeHoaNhac.Controllers
             }
             return View(danhSachGhe);
         }
+        public IActionResult VeCuaToi()
+        {
+            // Giả lập dữ liệu vé vừa thanh toán xong
+            var ve = new VeViewModel
+            {
+                MaVe = "BS-889911",
+                TenHoaNhac = "NEON PULSE 2024",
+                NgheSi = "SƠN TÙNG M-TP / LOW G",
+                ThoiGian = "15.06.2026 • 19:00",
+                DiaDiem = "SÂN VẬN ĐỘNG MỸ ĐÌNH, HÀ NỘI",
+                ViTriGhe = "Hàng A, Ghế 12",
+                LoaiVe = "VIP PLATINUM",
+                GiaVe = 2250000,
+                HinhAnh = "/images/event1.jpg"
+            };
+            return View(ve);
+        }
         public IActionResult Privacy()
         {
             return View();
