@@ -87,6 +87,16 @@ namespace QuanLyVeHoaNhac.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
+            if (email == "admin@gmail.com" && password == "123456")
+            {
+                // Cấp quyền Session Admin
+                HttpContext.Session.SetString("AdminStatus", "LoggedIn");
+
+                // Đá thẳng sang trang quản lý hòa nhạc của bạn luôn!
+                return Redirect("/AdminHoaNhac");
+            }
+
+            // 2. LOGIC CŨ: Check tài khoản user bình thường
             if (email == "user@gmail.com" && password == "123456")
             {
                 return RedirectToAction("Index", "Home");

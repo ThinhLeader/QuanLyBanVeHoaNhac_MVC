@@ -1,0 +1,39 @@
+﻿    @model List<QuanLyVeHoaNhac.Models.HoaNhac>
+
+    <div class="container mt-5" style="color: white; min-height: 80vh;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-success" style="font-weight: bold; letter-spacing: 1px;">QUẢN LÝ BUỔI HÒA NHẠC (ADMIN)</h2>
+            <a href="/AdminHoaNhac/Create" class="btn btn-success" style="font-weight: bold; padding: 10px 20px;">+ Thêm Đêm Nhạc Mới</a>
+        </div>
+
+        <div class="card bg-dark border-secondary shadow">
+            <div class="card-body p-0">
+                <table class="table table-dark table-striped table-hover m-0">
+                    <thead>
+                        <tr class="text-success border-bottom border-secondary">
+                            <th class="p-3">Mã Đêm Nhạc</th>
+                            <th class="p-3">Tên Buổi Hòa Nhạc</th>
+                            <th class="p-3">Địa Điểm Tổ Chức</th>
+                            <th class="p-3">Thời Gian Diện Ra</th>
+                            <th class="p-3 text-center">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="align-middle border-bottom border-secondary">
+                                <td class="p-3 text-info fw-bold">@item.Id</td>
+                                <td class="p-3 fw-bold">@item.TenHoaNhac</td>
+                                <td class="p-3 text-muted">@item.DiaDiem</td>
+                                <td class="p-3">@item.ThoiGian.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="p-3 text-center">
+                                    <a href="#" class="btn btn-outline-warning btn-sm me-2">Sửa</a>
+                                    <a href="/AdminHoaNhac/Delete/@item.Id" class="btn btn-outline-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa đêm nhạc: @item.TenHoaNhac?');">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>}

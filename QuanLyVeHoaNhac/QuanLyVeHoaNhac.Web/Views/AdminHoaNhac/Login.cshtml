@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null; // Tắt layout chung để làm trang đăng nhập độc lập giống Thịnh
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập Admin - BACKSTAGE</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+            body {
+                background-color: #000;
+                color: white;
+                font-family: sans-serif;
+            }
+
+            .login-container {
+                max-width: 450px;
+                margin-top: 10%;
+            }
+
+            .btn-neon {
+                background-color: #00FF00;
+                color: black;
+                font-weight: bold;
+                border: none;
+            }
+
+                .btn-neon:hover {
+                    background-color: #00CC00;
+                    color: black;
+                }
+
+            .border-neon {
+                border: 1px solid #00FF00 !important;
+            }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center">
+        <div class="login-container w-100 p-4 bg-dark rounded border border-secondary shadow-lg">
+            <h1 class="text-center text-success fw-bold mb-2" style="letter-spacing: 2px;">BACKSTAGE</h1>
+            <h5 class="text-center text-light mb-4">CỔNG ĐĂNG NHẬP ADMIN</h5>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger text-center py-2" role="alert">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form action="/AdminHoaNhac/Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label text-success fw-bold">EMAIL QUẢN TRỊ</label>
+                    <input type="email" name="email" class="form-control bg-secondary text-white border-dark" placeholder="admin@gmail.com" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-success fw-bold">MẬT KHẨU</label>
+                    <input type="password" name="password" class="form-control bg-secondary text-white border-dark" placeholder="••••••••" required />
+                </div>
+                <button type="submit" class="btn btn-neon w-100 py-2 mt-3">ĐĂNG NHẬP VÀO HỆ THỐNG</button>
+            </form>
+            <div class="text-center mt-3">
+                <small class="text-muted">Chỉ dành cho nhân sự quản lý dự án</small>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

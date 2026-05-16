@@ -1,0 +1,28 @@
+﻿@model QuanLyVeHoaNhac.Models.HoaNhac
+
+<div class="container mt-5" style="color: white; max-width: 600px; min-height: 80vh;">
+    <h2 class="text-success mb-4 text-center" style="font-weight: bold;">THÊM ĐÊM NHẠC MỚI</h2>
+
+    <form action="/AdminHoaNhac/Create" method="post" class="bg-dark p-4 rounded border border-success shadow-lg">
+        <div class="mb-3">
+            <label class="form-label text-success fw-bold">Mã Đêm Nhạc</label>
+            <input type="text" name="Id" class="form-control bg-secondary text-white border-dark" placeholder="Ví dụ: HN03" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success fw-bold">Tên Buổi Hòa Nhạc</label>
+            <input type="text" name="TenHoaNhac" class="form-control bg-secondary text-white border-dark" placeholder="Nhập tên sự kiện..." required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success fw-bold">Địa Điểm Tổ Chức</label>
+            <input type="text" name="DiaDiem" class="form-control bg-secondary text-white border-dark" placeholder="Nhập địa điểm..." required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label text-success fw-bold">Thời Gian Diễn Ra</label>
+            <input type="datetime-local" name="ThoiGian" class="form-control bg-secondary text-white border-dark" required />
+        </div>
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-success flex-grow-1 fw-bold">LƯU DỮ LIỆU</button>
+            <a href="/AdminHoaNhac/Index" class="btn btn-outline-light px-4">Hủy Bỏ</a>
+        </div>
+    </form>
+</div>
