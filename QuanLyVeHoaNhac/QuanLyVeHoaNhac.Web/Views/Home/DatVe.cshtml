@@ -1,0 +1,426 @@
+﻿@model IEnumerable<QuanLyVeHoaNhac.Models.LoaiVe>
+@{
+    var suKien = ViewBag.SuKien as QuanLyVeHoaNhac.Models.HoaNhacViewModel;
+    ViewData["Title"] = "Chọn Vé - " + suKien.TenHoaNhac;
+}
+
+<style>
+    body {
+        background-color: #0b0d0b !important;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .text-neon {
+        color: #39ff14 !important;
+    }
+
+    .bg-neon {
+        background-color: #39ff14 !important;
+        color: #000 !important;
+    }
+
+    .status-badge {
+        border: 1px solid #39ff14;
+        color: #39ff14;
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 2px;
+        display: inline-block;
+        letter-spacing: 0.5px;
+    }
+
+    .main-show-title {
+        font-size: 2.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        margin-top: 8px;
+    }
+
+    .sub-heading-ticket {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #39ff14;
+        border-left: 3px solid #39ff14;
+        padding-left: 10px;
+        margin-bottom: 25px;
+    }
+
+    /* Thẻ chọn vé có nút - 0 + */
+    .ticket-select-card {
+        background-color: #121412;
+        border: 1px solid #1c201c;
+        border-radius: 4px;
+        padding: 25px;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .t-name-tag {
+        font-size: 1.3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .t-tag-outline {
+        border: 1px solid #666;
+        color: #888;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 2px;
+    }
+
+    .t-desc-text {
+        color: #666;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        max-width: 500px;
+        line-height: 1.4;
+    }
+
+    .t-price-display {
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-top: 15px;
+    }
+
+    /* Widget tăng giảm số lượng */
+    .qty-widget {
+        display: flex;
+        align-items: center;
+        background-color: #1a1e1a;
+        border: 1px solid #2d352d;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .btn-qty-action {
+        background: transparent;
+        border: none;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .btn-qty-action:hover {
+            background-color: #252c25;
+            color: #39ff14;
+        }
+
+    .qty-display-num {
+        font-size: 1.1rem;
+        font-weight: 700;
+        min-width: 35px;
+        text-align: center;
+    }
+
+    /* Banner cảm hứng góc dưới trái */
+    .inspiration-banner {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url('/images/concert_crowd.jpg') center/cover;
+        border: 1px solid #1c201c;
+        border-radius: 4px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-top: 30px;
+    }
+
+    /* Khối biên lai tính tiền bên phải (Khung xanh lá viền bao quanh) */
+    .checkout-receipt-box {
+        border: 2px solid #39ff14;
+        background-color: #0d0f0d;
+        border-radius: 8px;
+        padding: 25px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .receipt-box-title {
+        font-size: 1.1rem;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+    }
+
+    .invoice-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #aaa;
+        margin-bottom: 12px;
+    }
+
+    .promo-input-group {
+        display: flex;
+        gap: 8px;
+        margin: 20px 0;
+    }
+
+    .promo-textbox {
+        background-color: #161a16;
+        border: 1px solid #2d352d;
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 10px 15px;
+        border-radius: 4px;
+        flex-grow: 1;
+        text-transform: uppercase;
+    }
+
+        .promo-textbox:focus {
+            border-color: #39ff14;
+            outline: none;
+        }
+
+    .btn-apply-code {
+        background-color: #1c201c;
+        border: 1px solid #2d352d;
+        color: #aaa;
+        font-weight: 800;
+        font-size: 0.75rem;
+        padding: 0 15px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .btn-apply-code:hover {
+            background-color: #252c25;
+            color: #fff;
+            border-color: #39ff14;
+        }
+
+    .grand-total-label {
+        color: #888;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .grand-total-price {
+        font-size: 2.2rem;
+        font-weight: 900;
+        line-height: 1;
+        margin-top: 4px;
+    }
+
+    .btn-confirm-checkout {
+        background-color: #39ff14;
+        color: #000;
+        font-weight: 900;
+        font-size: 1.1rem;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        margin-top: 25px;
+        transition: 0.2s;
+    }
+
+        .btn-confirm-checkout:hover {
+            background-color: #2ed110;
+            color: #000;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+        }
+
+    .security-lock-text {
+        font-size: 0.7rem;
+        color: #555;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="container-fluid px-5 mt-4">
+    <div class="mb-4">
+        <span class="status-badge">ĐANG MỞ BÁN</span>
+        <h1 class="main-show-title text-white">@suKien.TenHoaNhac</h1>
+        <p class="text-muted small fw-bold mt-1" style="letter-spacing: 0.5px;"><i class="bi bi-geo-alt-fill text-neon"></i> SÂN VẬN ĐỘNG QUỐC GIA MỸ ĐÌNH, HÀ NỘI</p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 pe-lg-4 mb-5">
+            <h4 class="sub-heading-ticket">CHỌN VÉ</h4>
+
+            <div id="ticket-list-wrapper">
+                @foreach (var ticket in Model)
+                {
+                    <div class="ticket-select-card" data-id="@ticket.MaLoaiVe" data-price="@((long)ticket.GiaVe)" data-name="@ticket.TenLoaiVe">
+                        <div>
+                            <div class="t-name-tag text-white">
+                                @ticket.TenLoaiVe
+                                @if (!string.IsNullOrEmpty(ticket.TagHang))
+                                {
+                                    <span class="t-tag-outline">@ticket.TagHang</span>
+                                }
+                            </div>
+                            <p class="t-desc-text">@ticket.MoTaChiTiet</p>
+                            <div class="t-price-display text-neon">@ticket.GiaVe.ToString("N0") VNĐ</div>
+                        </div>
+
+                        <div class="qty-widget">
+                            <button type="button" class="btn-qty-action" onclick="updateQty(this, -1)">-</button>
+                            <span class="qty-display-num">0</span>
+                            <button type="button" class="btn-qty-action" onclick="updateQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="inspiration-banner">
+                <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 1px;">CẢM HỨNG</span>
+                <h3 class="text-white fw-bold mb-0" style="letter-spacing: -1px; font-size: 1.8rem;">ÂM NHẠC KHÔNG GIỚI HẠN</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-5">
+            <div class="checkout-receipt-box shadow-lg">
+                <h4 class="receipt-box-title text-white">THÔNG TIN VÉ & XÁC NHẬN</h4>
+
+                <div id="receipt-items-list" class="mb-3">
+                    <p class="text-muted small fw-bold py-2 mb-0">Chưa có vé nào được chọn</p>
+                </div>
+
+                <div class="promo-input-group">
+                    <input type="text" class="promo-textbox" id="promo-code-input" value="XSNO23NC" placeholder="Nhập mã khuyến mãi">
+                    <button type="button" class="btn-apply-code" onclick="applyPromo()">Áp dụng</button>
+                </div>
+
+                <div class="invoice-row" id="discount-row" style="display: none;">
+                    <span>GIẢM GIÁ (10%)</span>
+                    <span class="text-danger" id="discount-val">-0 VNĐ</span>
+                </div>
+
+                <hr style="border-color: #222; margin: 20px 0;" />
+
+                <div>
+                    <span class="grand-total-label">TỔNG CỘNG</span>
+                    <h2 class="text-neon grand-total-price" id="grand-total-display">0 VNĐ</h2>
+                </div>
+
+                <a href="#" id="btn-submit-booking" class="btn-confirm-checkout">
+                    Xác Nhận Đặt Vé
+                </a>
+
+                <div class="security-lock-text">
+                    <div class="mb-1"><i class="bi bi-shield-lock-fill me-1"></i> Thanh toán an toàn qua SSL mã hóa.</div>
+                    <div><i class="bi bi-envelope-check-fill me-1"></i> Vé sẽ được gửi qua email ngay sau khi thanh toán.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isPromoApplied = false;
+
+    // Lấy ID show nhạc từ Razor ném vào biến JS cho an toàn
+    const hoaNhacId = @(suKien?.MaHoaNhac ?? 1);
+
+    // 1. HÀM TĂNG GIẢM SỐ LƯỢNG VÉ
+    function updateQty(button, change) {
+        const qtySpan = button.parentElement.querySelector('.qty-display-num');
+        let currentQty = parseInt(qtySpan.innerText);
+        currentQty += change;
+
+        // Giới hạn chỉ cho mua từ 0 đến tối đa 4 vé
+        if (currentQty >= 0 && currentQty <= 4) {
+            qtySpan.innerText = currentQty;
+            calculateTotal(); // Cập nhật lại hoá đơn
+        }
+    }
+
+    // 2. HÀM NHẬP MÃ GIẢM GIÁ
+    function applyPromo() {
+        const code = document.getElementById('promo-code-input').value.trim();
+        if (code === "XSNO23NC") {
+            isPromoApplied = true;
+            calculateTotal();
+        }
+    }
+
+    // 3. HÀM TÍNH TỔNG TIỀN VÀ TRUYỀN ID SANG TRANG TIẾP THEO
+    function calculateTotal() {
+        let subtotal = 0;
+        let htmlItems = '';
+        const cards = document.querySelectorAll('.ticket-select-card');
+
+        let selectedLoaiVeId = 1; // Mặc định mã vé
+
+        cards.forEach(card => {
+            const qty = parseInt(card.querySelector('.qty-display-num').innerText);
+            if (qty > 0) {
+                // Lấy data-id mã vé
+                selectedLoaiVeId = card.getAttribute('data-id') || 1;
+
+                const name = card.getAttribute('data-name');
+                const price = parseInt(card.getAttribute('data-price'));
+                const itemTotal = qty * price;
+                subtotal += itemTotal;
+
+                htmlItems += `
+                        <div class="invoice-row py-1">
+                            <span>${qty}X VÉ ${name}</span>
+                            <span class="text-white">${itemTotal.toLocaleString('vi-VN')} VNĐ</span>
+                        </div>`;
+            }
+        });
+
+        const receiptList = document.getElementById('receipt-items-list');
+        const discountRow = document.getElementById('discount-row');
+        const discountVal = document.getElementById('discount-val');
+        const grandTotalDisplay = document.getElementById('grand-total-display');
+        const btnSubmit = document.getElementById('btn-submit-booking');
+
+        // Nếu chưa chọn vé nào
+        if (subtotal === 0) {
+            receiptList.innerHTML = '<p class="text-muted small fw-bold py-2 mb-0">Chưa có vé nào được chọn</p>';
+            discountRow.style.display = 'none';
+            grandTotalDisplay.innerText = '0 VNĐ';
+            btnSubmit.href = "#"; // Khóa nút bấm
+            return;
+        }
+
+        receiptList.innerHTML = htmlItems;
+
+        // Tính giảm giá
+        let discount = 0;
+        if (isPromoApplied) {
+            discount = subtotal * 0.1;
+            discountRow.style.display = 'flex';
+            discountVal.innerText = `-${discount.toLocaleString('vi-VN')} VNĐ`;
+        } else {
+            discountRow.style.display = 'none';
+        }
+
+        const grandTotal = subtotal - discount;
+        grandTotalDisplay.innerText = grandTotal.toLocaleString('vi-VN') + " VNĐ";
+
+        // Gắn linh động id show và id loại vé vào đường dẫn
+        btnSubmit.href = `/Home/ChonGhe?id=${hoaNhacId}&loaiVeId=${selectedLoaiVeId}`;
+    }
+</script>
